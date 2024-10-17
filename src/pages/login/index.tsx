@@ -59,7 +59,7 @@ const LoginPage = () => {
                     <div className="lg:block">
                         <div className="sm:block lg:hidden">
                             <Image
-                                src="/rickandmortyfont.png"
+                                src="/rickandmortylogo.png"
                                 alt="Login image"
                                 width="1200"
                                 height="800"
@@ -132,6 +132,7 @@ const LoginPage = () => {
 
                             <Button type="submit"
                                 className="w-full"
+                                variant={"rickandmorty"}
                                 disabled={!form.formState.isValid || loading}>
                                 {loading && <RefreshCcw className="mr-2 h-4 w-4 animate-spin" />}
                                 {loading ? 'Cargando...' : 'Iniciar Sesión'}
