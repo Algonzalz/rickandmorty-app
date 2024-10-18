@@ -5,22 +5,6 @@ import { columnCharacter } from '@/components/columns/columnCharacter'
 import AdminPanelLayout from '@/components/layout/admin-panel-layout'
 import { IResult, ITransaction } from '@/lib/types'
 
-
-export const payments: any[] = [
-	{
-		id: "728ed52f",
-		amount: 100,
-		status: "pending",
-		email: "m@example.com",
-	},
-	{
-		id: "489e1d42",
-		amount: 125,
-		status: "processing",
-		email: "example@gmail.com",
-	},
-]
-
 const CharacterPage = () => {
 
 	const [characters, setCharacters] = useState<IResult[]>([])
