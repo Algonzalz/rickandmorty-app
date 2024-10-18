@@ -10,8 +10,8 @@ export default function Home() {
 			className={`${inter.className}`}
 		>
 			<Head>
-                <title>DaycohosWeb</title>
-                <link rel="icon" href="/daycohost/logo-daycohost-fondos-blancos.png" />
+                <title>RickAndMortyAPP</title>
+                <link rel="icon" href="/mortyAvatar.png" />
             </Head>
 		<LoginPage/>
 			{/* <h1 className="text-3xl font-bold tracking-tight"> Login del sistema</h1>
