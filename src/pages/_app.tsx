@@ -1,4 +1,5 @@
-import { Toaster } from "@/components/ui/toaster";
+
+import { Toaster } from "@/components/ui/sonner";
 import "@/styles/globals.css";
 import { NextPage } from "next";
 import type { AppProps } from "next/app";

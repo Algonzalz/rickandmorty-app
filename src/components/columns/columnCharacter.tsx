@@ -12,7 +12,6 @@ import { ICharacter } from "@/lib/types"
 const CellComponent = ({ row }: CellContext<ICharacter, unknown>) => {
     const [open, setIsOpen] = useState<boolean>(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
-    console.log(row);
     const openModalchangeStatusModal = () => {
         setIsOpen(true);
     }
