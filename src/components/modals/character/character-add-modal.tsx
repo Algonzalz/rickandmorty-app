@@ -8,10 +8,10 @@ import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 
 
-import { useToast } from '@/components/ui/use-toast';
 import { useCharacterStore } from '@/lib/stores/character.store';
 import { CharacterSchema } from '@/schema';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { showToast } from '@/lib/showToast';
 
 
 
@@ -23,7 +23,6 @@ interface IProps {
 export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     const addCharacter = useCharacterStore(state => state.addCharacter)
-    const { toast } = useToast()
 
     const form = useForm<z.infer<typeof CharacterSchema>>({
         mode: "onChange",
@@ -43,11 +42,11 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
     const onSubmit = async (values: z.infer<typeof CharacterSchema>) => {
         // console.log(values);
         addCharacter(values)
-        toast({
-            title: "Exitoso",
-            variant: 'normal',
-            description: "Personaje Agregado",
-        });
+
+        showToast({
+            type: "success",
+            message: `Personaje Agregado`
+        })
         setIsOpen(false);
     }
     return (

@@ -8,10 +8,10 @@ import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 
 import { CharacterSchema } from '@/schema';
-import { useToast } from '@/components/ui/use-toast';
 import { ICharacter } from '@/lib/types';
 import { useCharacterStore } from '@/lib/stores/character.store';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { showToast } from '@/lib/showToast';
 
 
 
@@ -25,7 +25,6 @@ export const CharacterEditModal: FC<IProps> = ({ isOpen, setIsOpen, character })
 
     const [disabled, setDisabled] = useState<boolean>(true)
     const updateCharacter = useCharacterStore(state => state.updateCharacter)
-    const { toast } = useToast()
     
     const form = useForm<z.infer<typeof CharacterSchema>>({
         mode: "onChange",
@@ -50,10 +49,10 @@ export const CharacterEditModal: FC<IProps> = ({ isOpen, setIsOpen, character })
 
 
         updateCharacter(character.id, values);
-        toast({
-            title: "Exitoso",
-            variant: 'normal',
-            description: "Personaje Actualizado",
+
+        showToast({
+            type: "success",
+            message: `Personaje Actualizado`
         })
         handleClose();
     }

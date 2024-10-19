@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { IEpisode } from '@/lib/types/episodes';
 import { EpisodeDetailSchema } from '@/schema';
 import { useEpisodeStore } from '@/lib/stores/episode.store';
-import { useToast } from '@/components/ui/use-toast';
+import { showToast } from '@/lib/showToast';
 
 
 
@@ -24,7 +24,6 @@ export const EpisodeEditModal: FC<IProps> = ({ isOpen, setIsOpen, episode }) => 
 
     const [disabled, setDisabled] = useState<boolean>(true)
     const  updateEpisode = useEpisodeStore(state => state.updateEpisode)
-    const { toast } = useToast()
     
     const form = useForm<z.infer<typeof EpisodeDetailSchema>>({
         mode: "onChange",
@@ -48,11 +47,11 @@ export const EpisodeEditModal: FC<IProps> = ({ isOpen, setIsOpen, episode }) => 
         // ✅ This will be type-safe and validated.
         // handleLogin(values);
         updateEpisode(episode.id, values);
-        toast({
-            title: "Exitoso",
-            variant: 'normal',
-            description: "Episodio Actualizado",
-          })
+
+        showToast({
+            type: "success",
+            message: `Episodio Actualizado`
+        })
         handleClose();
     }
     return (

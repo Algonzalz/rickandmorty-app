@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 
 import { CharacterStatusSchema } from '@/schema';
-import { useToast } from '@/components/ui/use-toast';
 import { useCharacterStore } from '@/lib/stores/character.store';
 import { ICharacter } from '@/lib/types';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { showToast } from '@/lib/showToast';
 
 
 
@@ -23,7 +23,6 @@ interface IProps {
 export const CharacterChangeStatusModal: FC<IProps> = ({ isOpen, setIsOpen, character }) => {
 
     const updateCharacterStatus = useCharacterStore(state => state.updateCharacterStatus)
-    const { toast } = useToast()
     const form = useForm<z.infer<typeof CharacterStatusSchema>>({
         mode: "onChange",
         resolver: zodResolver(CharacterStatusSchema),
@@ -38,10 +37,10 @@ export const CharacterChangeStatusModal: FC<IProps> = ({ isOpen, setIsOpen, char
     };
     const onSubmit = async (values: z.infer<typeof CharacterStatusSchema>) => {
         updateCharacterStatus(character.id, values.status);
-        toast({
-            title: "Exitoso",
-            variant: 'normal',
-            description: "Personaje Actualizado",
+
+        showToast({
+            type: "success",
+            message: `Personaje Actualizado`
         })
         handleClose();
     }

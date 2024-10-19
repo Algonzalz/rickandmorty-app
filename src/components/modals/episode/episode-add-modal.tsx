@@ -10,7 +10,7 @@ import { z } from 'zod';
 
 import { EpisodeDetailSchema } from '@/schema';
 import { useEpisodeStore } from '@/lib/stores/episode.store';
-import { useToast } from '@/components/ui/use-toast';
+import { showToast } from '@/lib/showToast';
 
 
 
@@ -22,7 +22,6 @@ interface IProps {
 export const EpisodeAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     const addEpisode = useEpisodeStore(state => state.addEpisode)
-    const { toast } = useToast()
     const form = useForm<z.infer<typeof EpisodeDetailSchema>>({
         mode: "onChange",
         resolver: zodResolver(EpisodeDetailSchema),
@@ -38,11 +37,11 @@ export const EpisodeAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
     };
     const onSubmit = async (values: z.infer<typeof EpisodeDetailSchema>) => {
         addEpisode(values)
-        toast({
-            title: "Exitoso",
-            variant: 'normal',
-            description: "Episodio Agregado",
-        });
+
+        showToast({
+            type: "success",
+            message: `Episodio Agregado`
+        })
         setIsOpen(false);
     }
     return (
