@@ -21,7 +21,7 @@ interface IEpisodeState {
 
 
 
-const storeApi: StateCreator<IEpisodeState> = (set, get) => ({
+const storeApi: StateCreator<IEpisodeState> = (set) => ({
     episodes: [],
 
     setEpisodesStore: (Episodes: IEpisode[]) => { set({ episodes: Episodes }) },

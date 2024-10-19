@@ -1,14 +1,13 @@
 import { useState } from "react"
-import { ColumnDef } from "@tanstack/react-table"
+import { CellContext, ColumnDef } from "@tanstack/react-table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Button } from "../ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { Ellipsis, UserRoundPen } from "lucide-react"
 
 import { EpisodeEditModal } from "../modals"
 import { IEpisode } from "@/lib/types/episodes"
 
-const CellComponent = ({ row }: { row: any }) => {
+const CellComponent = ({ row }:CellContext<IEpisode, unknown>) => {
     const [open, setIsOpen] = useState<boolean>(false);
 
 

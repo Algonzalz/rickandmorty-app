@@ -1,6 +1,6 @@
 import { create, StateCreator } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
-import { Gender, ICharacter, Species } from '../types';
+import {  ICharacter } from '../types';
 
 
 
@@ -23,7 +23,7 @@ interface ICharacterState {
 
 
 
-const storeApi: StateCreator<ICharacterState> = (set, get) => ({
+const storeApi: StateCreator<ICharacterState> = (set) => ({
     characters: [],
 
     setCharactersStore: (transaction: ICharacter[]) => { set({ characters: transaction }) },

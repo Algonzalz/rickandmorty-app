@@ -2,7 +2,6 @@
 import Head from "next/head"
 import { cn } from "@/lib/utils";
 import { useSidebarToggle } from "@/lib/stores/use-sidebar-toggle";
-import { useEffect } from "react";
 import { useStore } from "@/hooks/use-store";
 import { Sidebar } from "./sidebar";
 import { ContentLayout } from "./content-layout";

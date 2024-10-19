@@ -1,11 +1,8 @@
 import Image from 'next/image';
 import UserNav from './user-nav';
 
-interface NavbarProps {
-    title: string;
-}
 
-export function Navbar({ title = "RickANdMorty" }: NavbarProps) {
+export function Navbar() {
     return (
         <header className="sticky top-0 z-10 w-full shadow backdrop-blur supports-[backdrop-filter]:bg-slate-600">
             <div className="mx-4 sm:mx-8 flex h-14 items-center">
