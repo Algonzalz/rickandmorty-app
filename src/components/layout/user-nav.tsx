@@ -5,13 +5,16 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { LogOut} from "lucide-react"
 
+import { useEpisodeStore } from "@/lib/stores/episode.store"
 
 
 const userNav = () => {
 
+    const clearEpisode = useEpisodeStore(state => state.clearEpisode)
     const router = useRouter();
 
 	const redirectToHome = () => {
+        clearEpisode();
 		router.push('/')
 	}
     return (

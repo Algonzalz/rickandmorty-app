@@ -1,6 +1,6 @@
 export interface ITransactionEpisode {
     info:    Info;
-    results: IResultEpisodes[];
+    results: IEpisode[];
 }
 
 export interface Info {
@@ -10,12 +10,12 @@ export interface Info {
     prev:  null;
 }
 
-export interface IResultEpisodes {
+export interface IEpisode {
     id:         number;
     name:       string;
     air_date:   string;
     episode:    string;
     characters: string[];
     url:        string;
-    created:    Date;
+    created:    string;
 }

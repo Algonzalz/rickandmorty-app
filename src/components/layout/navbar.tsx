@@ -12,7 +12,7 @@ export function Navbar({ title = "RickANdMorty" }: NavbarProps) {
                 <div className="flex items-center space-x-4 lg:space-x-0">
                     {
                         <Image src="/rickandmortylogo.png"
-                            width={80} height={100} alt='rick'></Image>
+                            width="80" height="100" alt='rick'></Image>
 
                     }
                 </div>
