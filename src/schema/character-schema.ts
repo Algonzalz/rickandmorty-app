@@ -17,11 +17,16 @@ export const CharacterSchema = z.object({
     gender: z.string().min(1, {
         message: hasRequired
     }),
-    type: z.string().min(1, {
-        message: hasRequired
-    }),
+    type: z.string(),
     species: z.string().min(1, {
         message: hasRequired
     }),
+
+})
+
+export const CharacterStatusSchema = z.object({
+    status: z.string().min(2, {
+        message: hasRequired
+    })
 
 })

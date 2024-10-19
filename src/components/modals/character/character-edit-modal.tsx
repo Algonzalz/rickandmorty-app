@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -7,10 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 
-
-import { toast } from '@/hooks/use-toast';
-import { useCharacterStore } from '@/lib/stores/character.store';
 import { CharacterSchema } from '@/schema';
+import { toast } from '@/hooks/use-toast';
+import { ICharacter } from '@/lib/types';
+import { useCharacterStore } from '@/lib/stores/character.store';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 
@@ -18,36 +18,43 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 interface IProps {
     isOpen: boolean,
     setIsOpen: Dispatch<SetStateAction<boolean>>,
+    character: ICharacter
 }
 
-export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
+export const CharacterEditModal: FC<IProps> = ({ isOpen, setIsOpen, character }) => {
 
-    const addCharacter = useCharacterStore(state => state.addCharacter)
+    const [disabled, setDisabled] = useState<boolean>(true)
+    const updateCharacter = useCharacterStore(state => state.updateCharacter)
 
     const form = useForm<z.infer<typeof CharacterSchema>>({
         mode: "onChange",
         resolver: zodResolver(CharacterSchema),
         defaultValues: {
-            name: '',
-            gender: '',
-            type: '',
-            species: '',
+            name: character.name,
+            gender: character.gender,
+            type: character.type,
+            species: character.species,
         },
     })
 
-    const handleDisable = () => {
+    const handleClose = () => {
         form.reset();
-        setIsOpen(false)
+        setDisabled(true);
+        setIsOpen(false);
+    };
+    const handleDisable = () => {
+        setDisabled(false);
     };
     const onSubmit = async (values: z.infer<typeof CharacterSchema>) => {
-        // console.log(values);
-        addCharacter(values)
+
+
+        updateCharacter(character.id, values);
         toast({
             title: "Exitoso",
             variant: 'normal',
-            description: "Personaje Agregado",
-        });
-        setIsOpen(false);
+            description: "Personaje Actualizado",
+        })
+        handleClose();
     }
     return (
         <>
@@ -58,7 +65,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                 >
                     {/* Encabezado del diálogo */}
                     <DialogHeader>
-                        <DialogTitle className='text-emerald-800'>Agregar Personaje</DialogTitle>
+                        <DialogTitle className='text-emerald-800'>Detalle del Personaje</DialogTitle>
                         <DialogDescription>
                             {/* Descripción opcional aquí */}
                         </DialogDescription>
@@ -71,7 +78,6 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
 
                                 <form className="space-y-8">
-
                                     <FormField
                                         control={form.control}
                                         name="name"
@@ -80,6 +86,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                                                 <FormLabel>Nombre del Personaje</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                        disabled={disabled}
                                                         maxLength={20} {...field} />
                                                 </FormControl>
                                                 <FormMessage />
@@ -93,7 +100,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Género</FormLabel>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
                                                     <FormControl>
                                                         <SelectTrigger>
                                                             <SelectValue placeholder="Selecione un Género" />
@@ -115,7 +122,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                                         render={({ field }) => (
                                             <FormItem>
                                                 <FormLabel>Especie</FormLabel>
-                                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                                <Select onValueChange={field.onChange} defaultValue={field.value} disabled={disabled}>
                                                     <FormControl>
                                                         <SelectTrigger>
                                                             <SelectValue placeholder="Selecione un Tipo" />
@@ -130,7 +137,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                                             </FormItem>
                                         )}
                                     />
-                                      <FormField
+                                    <FormField
                                         control={form.control}
                                         name="type"
                                         render={({ field }) => (
@@ -138,6 +145,7 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
                                                 <FormLabel>Tipo de Personaje</FormLabel>
                                                 <FormControl>
                                                     <Input
+                                                        disabled={disabled}
                                                         maxLength={20} {...field} />
                                                 </FormControl>
                                                 <FormMessage />
@@ -155,12 +163,21 @@ export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
                     {/* Footer con el botón centrado */}
                     <DialogFooter className="flex flex-col-reverse items-center sm:flex-row sm:justify-center mt-4 space-x-0">
-                        <Button className='w-52 bg-slate-700' type="button" onClick={handleDisable}>
+                        <Button className='w-52 bg-slate-700' type="button" onClick={handleClose}>
                             Cerrar
                         </Button>
-                        <Button className='w-52' variant={'rickandmorty'} onClick={form.handleSubmit(onSubmit)}>
-                            Agregar
-                        </Button>
+                        {disabled ? (
+                            <Button className='w-52' variant={'rickandmorty'} type="button" onClick={handleDisable}>
+                                Editar
+                            </Button>
+
+                        ) : (
+                            <Button className='w-52' variant={'rickandmorty'} onClick={form.handleSubmit(onSubmit)}>
+                                Guardar
+                            </Button>
+                        )
+
+                        }
                     </DialogFooter>
                 </DialogContent>
             </Dialog>
