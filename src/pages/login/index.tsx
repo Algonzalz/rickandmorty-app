@@ -15,22 +15,50 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form"
+import { Box } from "@/components/box";
+import { toast } from "@/hooks/use-toast";
 
-import { LoginSchema } from "@/schema";
 import { hasOnlyLettersAndDot } from "@/lib/common/common.validators";
 import {  EyeIcon, EyeOffIcon, RefreshCcw } from "lucide-react";
-import { Box } from "@/components/box";
-
+import { login } from "@/api/mockAuth";
+import { LoginSchema } from "@/schema";
 // import { hasOnlyLetters } from "@/lib/common/common.validators";
 
 
-
+interface ILogin{
+	username: string,
+	password: string
+}
 
 const LoginPage = () => {
     const [passwordVisibility, setPasswordVisibility] = useState(false);
     // const setToken = useTokenStore(state => state.setToken);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+
+    const handleLogin = async ({ username, password }: ILogin ) => {
+		setLoading(true);
+		try {
+			const isLoggedIn = await login(username, password);
+			if(isLoggedIn){
+                router.push('/characters');
+			}else{
+				toast({
+					variant: "destructive",
+					title: "Error",
+					description: "Usuario o contraseña Incorrecta",
+				  })
+			}
+		} catch (error) {
+			toast({
+				variant: "destructive",
+				title: "Error",
+				description: "Error al realizar la solicitud",
+			  })
+		} finally{
+			setLoading(false);
+		}
+	}
 
     // 1. Define your form.
     const form = useForm<z.infer<typeof LoginSchema>>({
@@ -45,8 +73,8 @@ const LoginPage = () => {
     const onSubmit = async (values: z.infer<typeof LoginSchema>) => {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
+        handleLogin(values);
         form.reset();
-        router.push('/home');
     }
 
     //para validar con el onkeyDown en el input y no deja colocar letras o numeros
@@ -69,13 +97,13 @@ const LoginPage = () => {
 
 
                         </div>
-                        <h1 className="mt-6 text-4xl text-center font-bold tracking-tight text-daycohost_primary">Rick and Morty</h1>
-                        <h1 className="text-4xl text-center font-bold tracking-tight text-daycohost_primary">APP</h1>
+                        <h1 className="mt-6 text-4xl text-center font-bold tracking-tight text-emerald-900">Rick and Morty</h1>
+                        <h1 className="text-4xl text-center font-bold tracking-tight text-emerald-900">APP</h1>
 
 
                     </div>
                     <div>
-                        <h2 className="mt-6 text-2xl font-bold tracking-tight text-daycohost_primary">Ingrese con su cuenta</h2>
+                        <h2 className="mt-6 text-2xl font-bold tracking-tight text-emerald-900">Ingrese con su cuenta</h2>
                         {/* <p className="mt-2 text-sm text-muted-foreground">
                             Ingrese con sus credenciales
                         </p> */}
