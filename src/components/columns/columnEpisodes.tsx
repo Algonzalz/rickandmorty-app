@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/
 import { Ellipsis, UserRoundPen } from "lucide-react"
 
 import { EpisodeEditModal } from "../modals"
+import { IEpisode } from "@/lib/types/episodes"
 
 const CellComponent = ({ row }: { row: any }) => {
     const [open, setIsOpen] = useState<boolean>(false);
@@ -42,7 +43,7 @@ const CellComponent = ({ row }: { row: any }) => {
 
     )
 }
-export const columnEpisodes: ColumnDef<any>[] = [
+export const columnEpisodes: ColumnDef<IEpisode>[] = [
 
     {
         accessorKey: "id",

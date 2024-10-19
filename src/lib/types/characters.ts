@@ -1,28 +1,28 @@
 export interface ITransaction {
-    info:    Info;
-    results: IResult[];
+    info: Info;
+    results: ICharacter[];
 }
 
 export interface Info {
     count: number;
     pages: number;
-    next:  string;
-    prev:  null;
+    next: string;
+    prev: null;
 }
 
-export interface IResult {
-    id:       number;
-    name:     string;
-    status:   Status;
-    species:  Species;
-    type:     string;
-    gender:   Gender;
-    origin:   Location;
-    location: Location;
-    image:    string;
-    episode:  string[];
-    url:      string;
-    created:  Date;
+export interface ICharacter {
+    id: number;
+    name: string;
+    status: string;
+    species: string;
+    type: string;
+    gender: string;
+    origin: Location | string;
+    location: Location | string;
+    image: string;
+    episode: string[];
+    url: string;
+    created: string;
 }
 
 export enum Gender {
@@ -33,7 +33,7 @@ export enum Gender {
 
 export interface Location {
     name: string;
-    url:  string;
+    url: string;
 }
 
 export enum Species {

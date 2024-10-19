@@ -1,19 +1,10 @@
-import { IResult } from "@/lib/types"
+
 import { ColumnDef } from "@tanstack/react-table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Button } from "../ui/button"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
-import { ArrowLeftRight, Compass, Ellipsis, Search, UserRoundPen } from "lucide-react"
-
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
-// export type Payment = {
-//   id: string
-//   amount: number
-//   status: "pending" | "processing" | "success" | "failed"
-//   email: string
-// }
-
+import { ArrowLeftRight, Ellipsis, UserRoundPen } from "lucide-react"
+import { ICharacter } from "@/lib/types"
 
 
 const CellComponent = ({ row }: { row: any }) => {
@@ -60,14 +51,11 @@ const CellComponent = ({ row }: { row: any }) => {
                         <ArrowLeftRight  className="w-4 h-4 mr-3 text-muted-foreground" />Cambiar Estado Personaje</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
-            {/* <ElementDetailModal isOpen={openn} setIsOpen={setIsOpen}></ElementDetailModal>
-            <LogElementModal isOpen={isOpenModalLog} setIsOpenModalLog={setIsOpenModalLog}></LogElementModal> */}
-            {/* LogElementModal */}
         </>
 
     )
 }
-export const columnCharacter: ColumnDef<IResult>[] = [
+export const columnCharacter: ColumnDef<ICharacter>[] = [
     {
         accessorKey: "species",
         header: "Especie",
@@ -88,6 +76,10 @@ export const columnCharacter: ColumnDef<IResult>[] = [
     {
         accessorKey: "name",
         header: "Nombre",
+    },
+    {
+        accessorKey: "status",
+        header: "Estado",
     },
     {
         id: "actions",

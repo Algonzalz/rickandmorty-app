@@ -6,15 +6,18 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { LogOut} from "lucide-react"
 
 import { useEpisodeStore } from "@/lib/stores/episode.store"
+import { useCharacterStore } from "@/lib/stores/character.store"
 
 
 const userNav = () => {
 
     const clearEpisode = useEpisodeStore(state => state.clearEpisode)
+    const clearCharacters = useCharacterStore(state => state.clearCharacters)
     const router = useRouter();
 
 	const redirectToHome = () => {
         clearEpisode();
+        clearCharacters();
 		router.push('/')
 	}
     return (
