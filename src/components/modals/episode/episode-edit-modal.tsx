@@ -10,7 +10,7 @@ import { z } from 'zod';
 import { IEpisode } from '@/lib/types/episodes';
 import { EpisodeDetailSchema } from '@/schema';
 import { useEpisodeStore } from '@/lib/stores/episode.store';
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 
 
@@ -24,7 +24,8 @@ export const EpisodeEditModal: FC<IProps> = ({ isOpen, setIsOpen, episode }) => 
 
     const [disabled, setDisabled] = useState<boolean>(true)
     const  updateEpisode = useEpisodeStore(state => state.updateEpisode)
-
+    const { toast } = useToast()
+    
     const form = useForm<z.infer<typeof EpisodeDetailSchema>>({
         mode: "onChange",
         resolver: zodResolver(EpisodeDetailSchema),

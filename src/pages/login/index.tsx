@@ -16,12 +16,12 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Box } from "@/components/box";
-import { toast } from "@/hooks/use-toast";
 
 import { hasOnlyLettersAndDot } from "@/lib/common/common.validators";
 import {  EyeIcon, EyeOffIcon, RefreshCcw } from "lucide-react";
 import { login } from "@/api/mockAuth";
 import { LoginSchema } from "@/schema";
+import { useToast } from "@/components/ui/use-toast";
 // import { hasOnlyLetters } from "@/lib/common/common.validators";
 
 
@@ -35,7 +35,8 @@ const LoginPage = () => {
     // const setToken = useTokenStore(state => state.setToken);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
-
+    const { toast } = useToast()
+    
     const handleLogin = async ({ username, password }: ILogin ) => {
 		setLoading(true);
 		try {
@@ -53,7 +54,7 @@ const LoginPage = () => {
 			toast({
 				variant: "destructive",
 				title: "Error",
-				description: "Error al realizar la solicitud",
+				description: `${error} al realizar la solicitud`,
 			  })
 		} finally{
 			setLoading(false);

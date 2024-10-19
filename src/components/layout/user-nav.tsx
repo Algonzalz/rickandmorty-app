@@ -9,7 +9,7 @@ import { useEpisodeStore } from "@/lib/stores/episode.store"
 import { useCharacterStore } from "@/lib/stores/character.store"
 
 
-const userNav = () => {
+const UserNav = () => {
 
     const clearEpisode = useEpisodeStore(state => state.clearEpisode)
     const clearCharacters = useCharacterStore(state => state.clearCharacters)
@@ -61,4 +61,4 @@ const userNav = () => {
     )
 }
 
-export default userNav
+export default UserNav

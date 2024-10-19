@@ -1,20 +1,19 @@
 
 import { useState } from "react"
-import { ColumnDef } from "@tanstack/react-table"
+import { CellContext, ColumnDef } from "@tanstack/react-table"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 import { Button } from "../ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { ArrowLeftRight, Ellipsis, UserRoundPen } from "lucide-react"
 
 import { CharacterChangeStatusModal, CharacterEditModal } from "../modals"
 import { ICharacter } from "@/lib/types"
 
 
-const CellComponent = ({ row }: { row: any }) => {
+const CellComponent = ({ row }: CellContext<ICharacter, unknown>) => {
     const [open, setIsOpen] = useState<boolean>(false);
     const [isOpenModalEdit, setIsOpenModalEdit] = useState(false)
-
-    const openModalchangeStatusModal= () => {
+    console.log(row);
+    const openModalchangeStatusModal = () => {
         setIsOpen(true);
     }
 
@@ -30,18 +29,7 @@ const CellComponent = ({ row }: { row: any }) => {
                         variant="ghost"
                         className="h-8 w-8 p-0">
 
-                        <TooltipProvider delayDuration={0}>
-                            <Tooltip>
-                                <TooltipTrigger asChild>
-
-                                    <Ellipsis />
-                                </TooltipTrigger>
-                                <TooltipContent className="font-normal">
-                                    <p>Detalle Por Plataformas</p>
-                                </TooltipContent>
-                            </Tooltip>
-                        </TooltipProvider>
-
+                        <Ellipsis />
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
@@ -51,7 +39,7 @@ const CellComponent = ({ row }: { row: any }) => {
                         <UserRoundPen className="w-4 h-4 mr-3 text-muted-foreground" />Editar Personaje
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={openModalchangeStatusModal}>
-                        <ArrowLeftRight  className="w-4 h-4 mr-3 text-muted-foreground" />Cambiar Estado Personaje</DropdownMenuItem>
+                        <ArrowLeftRight className="w-4 h-4 mr-3 text-muted-foreground" />Cambiar Estado Personaje</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <CharacterChangeStatusModal isOpen={open} setIsOpen={setIsOpen} character={row.original} ></CharacterChangeStatusModal>

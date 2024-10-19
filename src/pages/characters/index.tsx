@@ -23,7 +23,11 @@ const CharacterPage = () => {
 			setCharacters(data.results);
 			setCharactersStore(data.results)
 		};
-		charactersStore.length != 0 ? setCharacters(charactersStore) : getCharacters();
+		if(charactersStore.length != 0){
+			setCharacters(charactersStore)
+		}else{
+			getCharacters()
+		}
 	}, [charactersStore])
 
 	const openModalAddCharacter = () => {

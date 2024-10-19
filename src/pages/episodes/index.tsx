@@ -5,8 +5,7 @@ import { DataTable } from '@/components/ui/data-table'
 import { columnEpisodes } from '@/components/columns'
 import { IEpisode, ITransactionEpisode } from '@/lib/types/episodes'
 import { useEpisodeStore } from '@/lib/stores/episode.store'
-import { set } from 'zod'
-import { Film, RefreshCcw } from 'lucide-react'
+import { Film } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { EpisodeAddModal } from '@/components/modals/episode/episode-add-modal'
 
@@ -24,7 +23,11 @@ const EpisodesPages = () => {
 			setEpisodes(data.results);
 			setEpisodesStore(data.results);
 		}
-		episodesStore.length != 0 ? setEpisodes(episodesStore) : getCharacters();
+		if(episodesStore.length != 0){
+			setEpisodes(episodesStore)
+		}else{
+			getCharacters();
+		}
 	}, [episodesStore])
 
 

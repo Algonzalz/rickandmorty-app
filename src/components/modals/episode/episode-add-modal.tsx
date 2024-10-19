@@ -1,7 +1,7 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import { z } from 'zod';
 
 import { EpisodeDetailSchema } from '@/schema';
 import { useEpisodeStore } from '@/lib/stores/episode.store';
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 
 
 
@@ -22,7 +22,7 @@ interface IProps {
 export const EpisodeAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     const addEpisode = useEpisodeStore(state => state.addEpisode)
-
+    const { toast } = useToast()
     const form = useForm<z.infer<typeof EpisodeDetailSchema>>({
         mode: "onChange",
         resolver: zodResolver(EpisodeDetailSchema),

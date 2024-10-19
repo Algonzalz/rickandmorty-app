@@ -1,4 +1,4 @@
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { z } from 'zod';
 
 
-import { toast } from '@/hooks/use-toast';
+import { useToast } from '@/components/ui/use-toast';
 import { useCharacterStore } from '@/lib/stores/character.store';
 import { CharacterSchema } from '@/schema';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -23,6 +23,7 @@ interface IProps {
 export const CharacterAddModal: FC<IProps> = ({ isOpen, setIsOpen }) => {
 
     const addCharacter = useCharacterStore(state => state.addCharacter)
+    const { toast } = useToast()
 
     const form = useForm<z.infer<typeof CharacterSchema>>({
         mode: "onChange",

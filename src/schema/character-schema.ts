@@ -1,4 +1,4 @@
-import { hasMaxLengthMessage, hasMinLengthMessage, hasRequired } from '@/lib/common/common.validators';
+import { hasMaxLengthMessage, hasRequired } from '@/lib/common/common.validators';
 import * as z from 'zod';
 
 
